@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Post {
+  id              Int       @id @default(autoincrement())
+  slug            String    @unique
+  title           String
+  excerpt         String    // Short summary
+  content         String    // Main content in Markdown format
+  imageUrl        String
+  published       Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+
+  category        Category  @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+
+  // JSON data to trigger interactive elements
+  // Example: '{"type": "timeline", "dataUrl": "/data/nokia-timeline.json"}'
+  interactiveData Json?
+}
+
+model Category {
+  id    Int     @id @default(autoincrement())
+  slug  String  @unique
+  name  String
+  posts Post[]
+}
