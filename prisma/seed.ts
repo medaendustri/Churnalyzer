@@ -88,7 +88,7 @@ Today, Nokia continues as a network infrastructure company, having sold its mobi
         events: [
           {
             year: 1865,
-            title: "Founded as paper mill",
+            title: "Founded as paper mills",
             description:
               "Fredrik Idestam establishes Nokia as a paper mill in Finland",
           },
