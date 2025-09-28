@@ -14,10 +14,7 @@ async function getCategoryPosts(
     const baseUrl =
       process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
     const response = await fetch(
-      `${baseUrl}/api/categories/${slug}?page=${page}&limit=12`,
-      {
-        cache: "no-store",
-      }
+      `${baseUrl}/api/categories/${slug}?page=${page}&limit=12`
     );
     if (!response.ok) return null;
     return await response.json();

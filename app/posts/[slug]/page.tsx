@@ -12,9 +12,7 @@ async function getPost(slug: string): Promise<PostDetailResponse | null> {
   try {
     const baseUrl =
       process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(`${baseUrl}/api/posts/${slug}`, {
-      cache: "no-store",
-    });
+    const response = await fetch(`${baseUrl}/api/posts/${slug}`);
     if (!response.ok) return null;
     return await response.json();
   } catch (error) {

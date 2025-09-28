@@ -47,9 +47,7 @@ async function getPosts() {
   try {
     const baseUrl =
       process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(`${baseUrl}/api/posts?limit=9`, {
-      cache: "no-store",
-    });
+    const response = await fetch(`${baseUrl}/api/posts?limit=9`);
     if (!response.ok) {
       console.error(
         "API response not ok:",

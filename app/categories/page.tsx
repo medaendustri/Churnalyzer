@@ -45,9 +45,7 @@ async function getCategories(): Promise<CategoriesResponse | null> {
   try {
     const baseUrl =
       process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(`${baseUrl}/api/categories`, {
-      cache: "no-store",
-    });
+    const response = await fetch(`${baseUrl}/api/categories`);
     if (!response.ok) throw new Error("Failed to fetch categories");
     return await response.json();
   } catch (error) {

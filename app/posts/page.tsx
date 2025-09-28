@@ -44,9 +44,7 @@ async function getPosts(page = 1): Promise<PostsResponse | null> {
   try {
     const baseUrl =
       process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(`${baseUrl}/api/posts?page=${page}&limit=12`, {
-      cache: "no-store",
-    });
+    const response = await fetch(`${baseUrl}/api/posts?page=${page}&limit=12`);
     if (!response.ok) throw new Error("Failed to fetch posts");
     return await response.json();
   } catch (error) {
