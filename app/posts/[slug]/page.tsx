@@ -1,35 +1,31 @@
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArticleBody } from "@/components/article-body";
-import { InteractiveSection } from "@/components/interactive-section";
-import { RelatedPosts } from "@/components/related-posts";
-import type { PostDetailResponse } from "@/lib/types";
+import { notFound } from "next/navigation"
+import Image from "next/image"
+import Link from "next/link"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { ArticleBody } from "@/components/article-body"
+import { InteractiveSection } from "@/components/interactive-section"
+import { RelatedPosts } from "@/components/related-posts"
+import type { PostDetailResponse } from "@/lib/types"
 
 async function getPost(slug: string): Promise<PostDetailResponse | null> {
   try {
-    const response = await fetch(`/api/posts/${slug}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/posts/${slug}`, {
       cache: "no-store",
-    });
-    if (!response.ok) return null;
-    return await response.json();
+    })
+    if (!response.ok) return null
+    return await response.json()
   } catch (error) {
-    console.error("Error fetching post:", error);
-    return null;
+    console.error("Error fetching post:", error)
+    return null
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const data = await getPost(params.slug);
-  if (!data) return { title: "Post Not Found" };
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const data = await getPost(params.slug)
+  if (!data) return { title: "Post Not Found" }
 
-  const { post } = data;
+  const { post } = data
   return {
     title: `${post.title} | Churnalyzer`,
     description: post.excerpt,
@@ -38,21 +34,17 @@ export async function generateMetadata({
       description: post.excerpt,
       images: [post.imageUrl],
     },
-  };
+  }
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const data = await getPost(params.slug);
+export default async function PostPage({ params }: { params: { slug: string } }) {
+  const data = await getPost(params.slug)
 
   if (!data) {
-    notFound();
+    notFound()
   }
 
-  const { post, relatedPosts } = data;
+  const { post, relatedPosts } = data
 
   return (
     <article className="mx-auto max-w-4xl px-6 py-16 lg:px-8">
@@ -71,13 +63,9 @@ export default async function PostPage({
           </Badge>
         </div>
 
-        <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl text-balance">
-          {post.title}
-        </h1>
+        <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl text-balance">{post.title}</h1>
 
-        <p className="mt-6 text-xl leading-8 text-slate-600 text-pretty">
-          {post.excerpt}
-        </p>
+        <p className="mt-6 text-xl leading-8 text-slate-600 text-pretty">{post.excerpt}</p>
 
         <div className="mt-8 flex items-center gap-4">
           <Button size="sm" variant="outline">
@@ -95,10 +83,7 @@ export default async function PostPage({
       <div className="mb-16">
         <Image
           className="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover"
-          src={
-            post.imageUrl ||
-            "/placeholder.svg?height=600&width=1200&query=business failure case study"
-          }
+          src={post.imageUrl || "/placeholder.svg?height=600&width=1200&query=business failure case study"}
           alt={post.title}
           width={1200}
           height={600}
@@ -122,9 +107,7 @@ export default async function PostPage({
       <footer className="mt-16 border-t border-slate-200 pt-8">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-slate-600">
-              Found this case study helpful?
-            </p>
+            <p className="text-sm text-slate-600">Found this case study helpful?</p>
             <div className="mt-2 flex gap-2">
               <Button size="sm" variant="outline">
                 👍 Helpful
@@ -162,5 +145,5 @@ export default async function PostPage({
         </Button>
       </div>
     </article>
-  );
+  )
 }
