@@ -45,7 +45,8 @@ import { FailureTicker } from "@/components/failure-ticker";
 
 async function getPosts() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
     const response = await fetch(`${baseUrl}/api/posts?limit=9`, {
       cache: "no-store",
     });

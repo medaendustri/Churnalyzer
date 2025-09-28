@@ -42,14 +42,11 @@ import type { PostsResponse } from "@/lib/types";
 
 async function getPosts(page = 1): Promise<PostsResponse | null> {
   try {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-      }/api/posts?page=${page}&limit=12`,
-      {
-        cache: "no-store",
-      }
-    );
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
+    const response = await fetch(`${baseUrl}/api/posts?page=${page}&limit=12`, {
+      cache: "no-store",
+    });
     if (!response.ok) throw new Error("Failed to fetch posts");
     return await response.json();
   } catch (error) {

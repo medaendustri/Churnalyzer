@@ -43,14 +43,11 @@ import type { CategoriesResponse } from "@/lib/types";
 
 async function getCategories(): Promise<CategoriesResponse | null> {
   try {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-      }/api/categories`,
-      {
-        cache: "no-store",
-      }
-    );
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
+    const response = await fetch(`${baseUrl}/api/categories`, {
+      cache: "no-store",
+    });
     if (!response.ok) throw new Error("Failed to fetch categories");
     return await response.json();
   } catch (error) {

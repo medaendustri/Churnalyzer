@@ -10,10 +10,11 @@ async function getCategoryPosts(
   page = 1
 ): Promise<CategoryPostsResponse | null> {
   try {
+    // Next.js app router'da server component'ta çalıştığı için window yok
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
     const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-      }/api/categories/${slug}?page=${page}&limit=12`,
+      `${baseUrl}/api/categories/${slug}?page=${page}&limit=12`,
       {
         cache: "no-store",
       }

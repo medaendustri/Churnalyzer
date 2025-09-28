@@ -10,14 +10,11 @@ import type { PostDetailResponse } from "@/lib/types";
 
 async function getPost(slug: string): Promise<PostDetailResponse | null> {
   try {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-      }/api/posts/${slug}`,
-      {
-        cache: "no-store",
-      }
-    );
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
+    const response = await fetch(`${baseUrl}/api/posts/${slug}`, {
+      cache: "no-store",
+    });
     if (!response.ok) return null;
     return await response.json();
   } catch (error) {
