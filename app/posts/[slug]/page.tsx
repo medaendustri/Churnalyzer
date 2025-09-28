@@ -36,7 +36,17 @@ export async function generateMetadata({
 
   const { post } = data;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(post.category.name)}&date=${encodeURIComponent(new Date(post.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) )}`;
+  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(
+    post.title
+  )}&category=${encodeURIComponent(
+    post.category.name
+  )}&date=${encodeURIComponent(
+    new Date(post.createdAt).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  )}`;
   return {
     title: `${post.title} | Churnalyzer`,
     description: post.excerpt,
