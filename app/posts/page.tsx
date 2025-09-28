@@ -1,3 +1,39 @@
+export const metadata = {
+  title: "All Case Studies | Churnalyzer",
+  description:
+    "Browse all business failure case studies - learn from corporate collapses, startup failures, and strategic missteps.",
+  keywords: [
+    "case studies",
+    "business failure",
+    "corporate collapse",
+    "startup",
+    "churnalyzer",
+  ],
+  openGraph: {
+    title: "All Case Studies | Churnalyzer",
+    description:
+      "Browse all business failure case studies - learn from corporate collapses, startup failures, and strategic missteps.",
+    url: "https://churnalyzer.com/posts",
+    siteName: "Churnalyzer",
+    images: [
+      {
+        url: "https://churnalyzer.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "All Case Studies Churnalyzer",
+      },
+    ],
+    locale: "en_US",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "All Case Studies | Churnalyzer",
+    description: "Browse all business failure case studies.",
+    site: "@churnalyzer",
+    images: ["https://churnalyzer.com/og-image.png"],
+  },
+};
 import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
@@ -21,12 +57,6 @@ async function getPosts(page = 1): Promise<PostsResponse | null> {
     return null;
   }
 }
-
-export const metadata = {
-  title: "All Case Studies | Churnalyzer",
-  description:
-    "Browse all business failure case studies - learn from corporate collapses, startup failures, and strategic missteps.",
-};
 
 export default async function PostsPage({
   searchParams,

@@ -26,9 +26,22 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!data) return { title: "Category Not Found" }
 
   const { category } = data
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com"
+  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(category.name + ' Case Studies')}&category=${encodeURIComponent(category.name)}&date=${encodeURIComponent(new Date().toLocaleDateString("en-US", { year: "numeric", month: "long" }))}`
   return {
     title: `${category.name} Case Studies | Churnalyzer`,
     description: `Explore business failures in ${category.name.toLowerCase()} - learn from strategic missteps and corporate collapses.`,
+    openGraph: {
+      title: `${category.name} Case Studies`,
+      description: `Explore business failures in ${category.name.toLowerCase()} - learn from strategic missteps and corporate collapses.`,
+      images: [ogImageUrl],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${category.name} Case Studies`,
+      description: `Explore business failures in ${category.name.toLowerCase()} - learn from strategic missteps and corporate collapses.`,
+      images: [ogImageUrl],
+    },
   }
 }
 

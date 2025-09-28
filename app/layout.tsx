@@ -22,6 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="Churnalyzer" />
+      </head>
       <body className="antialiased">
         <Header />
         {children}

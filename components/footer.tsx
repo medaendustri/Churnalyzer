@@ -1,5 +1,14 @@
-import Link from "next/link"
-import { TrendingDown, AlertTriangle, BarChart3, Users, Mail, Twitter, Linkedin, Github } from "lucide-react"
+import Link from "next/link";
+import {
+  TrendingDown,
+  AlertTriangle,
+  BarChart3,
+  Users,
+  Mail,
+  Twitter,
+  Linkedin,
+  Github,
+} from "lucide-react";
 
 export function Footer() {
   return (
@@ -59,20 +68,30 @@ export function Footer() {
                 </span>
               </div>
               <p className="mt-4 text-sm leading-6 text-slate-300">
-                Learning from the world's biggest business failures to prevent future disasters. Turn corporate
-                catastrophes into competitive advantages.
+                Learning from the world's biggest business failures to prevent
+                future disasters. Turn corporate catastrophes into competitive
+                advantages.
               </p>
 
               <div className="mt-6 flex space-x-4">
-                <a href="#" className="text-slate-400 hover:text-white transition-colors group">
+                <a
+                  href="#"
+                  className="text-slate-400 hover:text-white transition-colors group"
+                >
                   <span className="sr-only">Twitter</span>
                   <Twitter className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
-                <a href="#" className="text-slate-400 hover:text-white transition-colors group">
+                <a
+                  href="#"
+                  className="text-slate-400 hover:text-white transition-colors group"
+                >
                   <span className="sr-only">LinkedIn</span>
                   <Linkedin className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
-                <a href="#" className="text-slate-400 hover:text-white transition-colors group">
+                <a
+                  href="#"
+                  className="text-slate-400 hover:text-white transition-colors group"
+                >
                   <span className="sr-only">GitHub</span>
                   <Github className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
@@ -83,7 +102,9 @@ export function Footer() {
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">Content</h3>
+                <h3 className="text-sm font-semibold leading-6 text-white">
+                  Content
+                </h3>
                 <ul role="list" className="mt-6 space-y-4">
                   <li>
                     <Link
@@ -122,7 +143,9 @@ export function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-white">Company</h3>
+                <h3 className="text-sm font-semibold leading-6 text-white">
+                  Company
+                </h3>
                 <ul role="list" className="mt-6 space-y-4">
                   <li>
                     <Link
@@ -138,6 +161,14 @@ export function Footer() {
                       className="text-sm leading-6 text-slate-300 hover:text-red-400 transition-colors"
                     >
                       Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/privacy"
+                      className="text-sm leading-6 text-slate-300 hover:text-red-400 transition-colors"
+                    >
+                      Privacy Policy
                     </Link>
                   </li>
                   <li>
@@ -161,7 +192,9 @@ export function Footer() {
             </div>
 
             <div className="mt-10 md:mt-0">
-              <h3 className="text-sm font-semibold leading-6 text-white">Stay Updated</h3>
+              <h3 className="text-sm font-semibold leading-6 text-white">
+                Stay Updated
+              </h3>
               <p className="mt-2 text-sm text-slate-300">
                 Get weekly insights on business failures and lessons learned.
               </p>
@@ -192,14 +225,17 @@ export function Footer() {
         <div className="mt-16 border-t border-slate-700 pt-8 sm:mt-20 lg:mt-24">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="mb-4 md:mb-0">
-              <p className="text-xs leading-5 text-slate-400">&copy; 2025 Churnalyzer. All rights reserved.</p>
+              <p className="text-xs leading-5 text-slate-400">
+                &copy; 2025 Churnalyzer. All rights reserved.
+              </p>
             </div>
             <div className="text-xs text-slate-500 italic">
-              "Those who cannot remember the past are condemned to repeat it." - George Santayana
+              "Those who cannot remember the past are condemned to repeat it." -
+              George Santayana
             </div>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }

@@ -35,13 +35,21 @@ export async function generateMetadata({
   if (!data) return { title: "Post Not Found" };
 
   const { post } = data;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
+  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(post.category.name)}&date=${encodeURIComponent(new Date(post.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) )}`;
   return {
     title: `${post.title} | Churnalyzer`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: [post.imageUrl],
+      images: [ogImageUrl],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImageUrl],
     },
   };
 }
