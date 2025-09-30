@@ -22,8 +22,8 @@ export async function GET(request: NextRequest) {
       },
       skip,
       take: limit,
+      
     });
-
     const total = await prisma.post.count({
       where: {
         published: true,
