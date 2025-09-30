@@ -1,7 +1,10 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
+import { type NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { slug: string } }
+) {
   try {
     const post = await prisma.post.findUnique({
       where: {
@@ -11,10 +14,19 @@ export async function GET(request: NextRequest, { params }: { params: { slug: st
       include: {
         category: true,
       },
-    })
+    });
 
     if (!post) {
-      return NextResponse.json({ error: "Post not found" }, { status: 404 })
+      return NextResponse.json(
+        { error: "Post not found" },
+        {
+          status: 404,
+          headers: {
+            "Cache-Control":
+              "no-store, no-cache, must-revalidate, proxy-revalidate",
+          },
+        }
+      );
     }
 
     // Get related posts from the same category
@@ -39,14 +51,31 @@ export async function GET(request: NextRequest, { params }: { params: { slug: st
         createdAt: true,
         category: true,
       },
-    })
+    });
 
-    return NextResponse.json({
-      post,
-      relatedPosts,
-    })
+    return NextResponse.json(
+      {
+        post,
+        relatedPosts,
+      },
+      {
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
+    );
   } catch (error) {
-    console.error("Error fetching post:", error)
-    return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 })
+    console.error("Error fetching post:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch post" },
+      {
+        status: 500,
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
+    );
   }
 }

@@ -38,6 +38,7 @@ ${urls
   return new NextResponse(xml, {
     headers: {
       "Content-Type": "application/xml",
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
     },
   });
 }

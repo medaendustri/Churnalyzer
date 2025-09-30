@@ -64,14 +64,8 @@ export async function GET(req: NextRequest) {
         React.createElement(
           "div",
           {
-            key: "brand",
-            style: {
-              position: "absolute",
-              bottom: 40,
-              right: 60,
-              fontSize: 28,
-              opacity: 0.7,
-            },
+            key: "footer",
+            style: { fontSize: 28, opacity: 0.7, marginTop: 32 },
           },
           "Churnalyzer.com"
         ),
@@ -80,6 +74,10 @@ export async function GET(req: NextRequest) {
     {
       width: 1200,
       height: 630,
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+      },
     }
   );
 }
