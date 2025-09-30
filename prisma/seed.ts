@@ -404,3 +404,4 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
+// Seed dosyası temizlendi. Yeni seed verinizi buraya ekleyebilirsiniz.
