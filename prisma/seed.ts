@@ -68,7 +68,7 @@ As consumers flocked to the intuitive, app-driven experiences of iOS and Android
 3.  **Don't Fight Internal Revolutions:** A corporate culture that resists radical change and protects legacy products is doomed to fail. Innovation requires a willingness to cannibalize your own success.
 4.  **User Experience Trumps Technical Specs:** While Nokia focused on engineering prowess and feature lists, its competitors focused on creating a seamless and delightful user journey. The company that best understands the user, wins.
         `,
-        interactiveData: JSON.stringify({
+        interactiveData: {
           type: "timeline",
           title: "Nokia's Rise and Fall",
           events: [
@@ -102,7 +102,7 @@ As consumers flocked to the intuitive, app-driven experiences of iOS and Android
                 "Nokia's mobile devices and services division is sold to Microsoft.",
             },
           ],
-        }),
+        },
       },
       // 2. Blockbuster
       {
@@ -132,7 +132,7 @@ While Blockbuster doubled down on its physical stores, Netflix was busy making l
 3.  **Convenience is King:** Customers will always gravitate towards the solution that is easier, faster, and more flexible. The friction of physical retail could not compete with the frictionless experience of digital streaming.
 4.  **Adapt or Die:** This is the ultimate lesson from Blockbuster's demise. Markets, technology, and consumer behavior are in a constant state of flux. Refusing to adapt isn't a strategy; it's a death sentence.
         `,
-        interactiveData: JSON.stringify({
+        interactiveData: {
           type: "comparison",
           title: "Blockbuster vs. Netflix: The Fatal Differences",
           base: {
@@ -153,7 +153,7 @@ While Blockbuster doubled down on its physical stores, Netflix was busy making l
               "Delivers Directly to the Customer",
             ],
           },
-        }),
+        },
       },
       // 3. Theranos
       {
@@ -184,7 +184,7 @@ The beginning of the end came in 2015, when investigative journalist John Carrey
 3.  **Due Diligence is Crucial:** The story of Theranos is a monumental failure of due diligence. Investors, board members, and partners were so captivated by the charismatic founder and her story that they failed to ask the tough, technical questions.
 4.  **Listen to Dissenting Voices:** Whistleblowers and internal critics are not enemies; they are often a company's last line of defense against disaster. A culture that silences dissent is a culture that invites catastrophe.
         `,
-        interactiveData: JSON.stringify({
+        interactiveData: {
           type: "autopsy",
           title: "Theranos Case Autopsy",
           caseSummary: {
@@ -202,7 +202,7 @@ The beginning of the end came in 2015, when investigative journalist John Carrey
               "A healthy corporate culture is a prerequisite for long-term success.",
             ],
           },
-        }),
+        },
       },
       // 4. Ford Edsel
       {
@@ -232,7 +232,7 @@ Sales were an unmitigated disaster. Ford had projected selling over 200,000 Edse
 3.  **Don't Believe Your Own Hype:** Creating massive expectations can be a double-edged sword. If your product fails to deliver on its monumental promises, the public backlash will be equally monumental.
 4.  **The Product is the Ultimate Marketing:** No amount of advertising or promotion can save a product that is poorly designed, overpriced, or fails to meet basic quality standards. The product itself must be the hero of the story.
         `,
-        interactiveData: JSON.stringify({
+        interactiveData: {
           type: "autopsy",
           title: "Ford Edsel Case Autopsy",
           caseSummary: {
@@ -250,7 +250,7 @@ Sales were an unmitigated disaster. Ford had projected selling over 200,000 Edse
               "Design and quality are more powerful than any advertising campaign.",
             ],
           },
-        }),
+        },
       },
       // 5. Vine
       {
@@ -280,7 +280,7 @@ The creator exodus was the beginning of the end. With its top talent gone, the p
 3.  **A Clear Monetization Strategy is Essential:** A great product and an engaged community are not enough. Without a sustainable business model that benefits both the platform and its key contributors, you are living on borrowed time.
 4.  **Parent Company Support is a Double-Edged Sword:** Being acquired can provide resources, but if you are not a strategic priority for your parent company, you risk being starved of investment and ultimately abandoned when times get tough.
         `,
-        interactiveData: JSON.stringify({
+        interactiveData: {
           type: "timeline",
           title: "Vine's Short but Influential Life",
           events: [
@@ -310,7 +310,7 @@ The creator exodus was the beginning of the end. With its top talent gone, the p
                 "Twitter announces it is discontinuing the Vine mobile app.",
             },
           ],
-        }),
+        },
       },
     ],
   });

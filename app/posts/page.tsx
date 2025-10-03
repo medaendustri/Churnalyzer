@@ -35,22 +35,39 @@ export const metadata = {
     images: ["https://churnalyzer.com/og-image.png"],
   },
 };
+
 import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { PostsResponse } from "@/lib/types";
+import { prisma } from "@/lib/prisma";
 
-async function getPosts(page = 1): Promise<PostsResponse | null> {
+async function getPosts(page = 1) {
   try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(`${baseUrl}/api/posts?page=${page}&limit=12`);
-    if (!response.ok) throw new Error("Failed to fetch posts");
-    return await response.json();
+    const limit = 12;
+    const skip = (page - 1) * limit;
+    const [posts, total] = await Promise.all([
+      prisma.post.findMany({
+        skip,
+        take: limit,
+        orderBy: { createdAt: "desc" },
+        include: { category: true },
+      }),
+      prisma.post.count(),
+    ]);
+    const pagination = {
+      page,
+      limit,
+      total,
+      pages: Math.ceil(total / limit),
+    };
+    return { posts, pagination };
   } catch (error) {
-    console.error("Error fetching posts:", error);
-    return null;
+    console.error("Error fetching posts from Prisma:", error);
+    return {
+      posts: [],
+      pagination: { page: 1, limit: 12, total: 0, pages: 1 },
+    };
   }
 }
 
@@ -60,22 +77,7 @@ export default async function PostsPage({
   searchParams: { page?: string };
 }) {
   const page = Number.parseInt(searchParams.page || "1");
-  const data = await getPosts(page);
-
-  if (!data) {
-    return (
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-slate-900">
-            Unable to load case studies
-          </h1>
-          <p className="mt-2 text-slate-600">Please try again later.</p>
-        </div>
-      </div>
-    );
-  }
-
-  const { posts, pagination } = data;
+  const { posts, pagination } = await getPosts(page);
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">

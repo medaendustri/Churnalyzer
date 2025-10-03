@@ -1,26 +1,39 @@
 export const dynamic = "force-dynamic";
+
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { CategoryPostsResponse } from "@/lib/types";
+import { prisma } from "@/lib/prisma";
 
-async function getCategoryPosts(
-  slug: string,
-  page = 1
-): Promise<CategoryPostsResponse | null> {
+async function getCategoryPosts(slug: string, page = 1) {
   try {
-    // Next.js app router'da server component'ta çalıştığı için window yok
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(
-      `${baseUrl}/api/categories/${slug}?page=${page}&limit=12`
-    );
-    if (!response.ok) return null;
-    return await response.json();
+    const limit = 12;
+    const skip = (page - 1) * limit;
+    const category = await prisma.category.findUnique({
+      where: { slug },
+    });
+    if (!category) return null;
+    const [posts, total] = await Promise.all([
+      prisma.post.findMany({
+        where: { categoryId: category.id },
+        skip,
+        take: limit,
+        orderBy: { createdAt: "desc" },
+        include: { category: true },
+      }),
+      prisma.post.count({ where: { categoryId: category.id } }),
+    ]);
+    const pagination = {
+      page,
+      limit,
+      total,
+      pages: Math.ceil(total / limit),
+    };
+    return { category, posts, pagination };
   } catch (error) {
-    console.error("Error fetching category posts:", error);
+    console.error("Error fetching category posts from Prisma:", error);
     return null;
   }
 }
@@ -65,12 +78,11 @@ export default async function CategoryPage({
   searchParams: { page?: string };
 }) {
   const page = Number.parseInt(searchParams.page || "1");
-  const data = await getCategoryPosts(params.slug, page);
 
+  const data = await getCategoryPosts(params.slug, page);
   if (!data) {
     notFound();
   }
-
   const { category, posts, pagination } = data;
 
   return (

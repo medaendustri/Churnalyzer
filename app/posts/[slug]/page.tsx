@@ -6,17 +6,28 @@ import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/article-body";
 import { InteractiveSection } from "@/components/interactive-section";
 import { RelatedPosts } from "@/components/related-posts";
-import type { PostDetailResponse } from "@/lib/types";
+import { prisma } from "@/lib/prisma";
 
-async function getPost(slug: string): Promise<PostDetailResponse | null> {
+async function getPost(slug: string) {
   try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(`${baseUrl}/api/posts/${slug}`);
-    if (!response.ok) return null;
-    return await response.json();
+    const post = await prisma.post.findUnique({
+      where: { slug },
+      include: { category: true },
+    });
+    if (!post) return null;
+    // Related posts: same category, exclude current post
+    const relatedPosts = await prisma.post.findMany({
+      where: {
+        categoryId: post.categoryId,
+        NOT: { id: post.id },
+      },
+      take: 3,
+      orderBy: { createdAt: "desc" },
+      include: { category: true },
+    });
+    return { post, relatedPosts };
   } catch (error) {
-    console.error("Error fetching post:", error);
+    console.error("Error fetching post from Prisma:", error);
     return null;
   }
 }
@@ -65,11 +76,9 @@ export default async function PostPage({
   params: { slug: string };
 }) {
   const data = await getPost(params.slug);
-
   if (!data) {
     notFound();
   }
-
   const { post, relatedPosts } = data;
 
   return (

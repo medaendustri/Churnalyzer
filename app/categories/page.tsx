@@ -38,26 +38,29 @@ export const metadata = {
     images: ["https://churnalyzer.com/og-image.png"],
   },
 };
+
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import type { CategoriesResponse } from "@/lib/types";
+import { prisma } from "@/lib/prisma";
 
-async function getCategories(): Promise<CategoriesResponse | null> {
+async function getCategories() {
   try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(`${baseUrl}/api/categories`);
-    if (!response.ok) throw new Error("Failed to fetch categories");
-    return await response.json();
+    const categories = await prisma.category.findMany({
+      include: {
+        _count: {
+          select: { posts: true },
+        },
+      },
+    });
+    return { categories };
   } catch (error) {
-    console.error("Error fetching categories:", error);
-    return null;
+    console.error("Error fetching categories from Prisma:", error);
+    return { categories: [] };
   }
 }
 
 export default async function CategoriesPage() {
-  const data = await getCategories();
-  const categories = data?.categories || [];
+  const { categories } = await getCategories();
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">

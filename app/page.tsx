@@ -36,34 +36,26 @@ export const metadata = {
     images: ["https://churnalyzer.com/og-image.png"],
   },
 };
+
 import { HeroSection } from "@/components/hero-section";
 import { FeaturedPost } from "@/components/featured-post";
 import { LatestPostsGrid } from "@/components/latest-posts-grid";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 import { StatsSection } from "@/components/stats-section";
 import { FailureTicker } from "@/components/failure-ticker";
+import { prisma } from "@/lib/prisma";
 
 async function getPosts() {
   try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "https://churnalyzer.com";
-    const response = await fetch(`${baseUrl}/api/posts?limit=9`);
-    if (!response.ok) {
-      console.error(
-        "API response not ok:",
-        response.status,
-        response.statusText
-      );
-      return {
-        posts: [],
-        pagination: { page: 1, limit: 9, total: 0, pages: 1 },
-      };
-    }
-    const data = await response.json();
-    return data;
+    const posts = await prisma.post.findMany({
+      take: 9,
+      orderBy: { createdAt: "desc" },
+      include: { category: true },
+    });
+    return { posts };
   } catch (error) {
-    console.error("Error fetching posts:", error);
-    return { posts: [], pagination: { page: 1, limit: 9, total: 0, pages: 1 } };
+    console.error("Error fetching posts from Prisma:", error);
+    return { posts: [] };
   }
 }
 
